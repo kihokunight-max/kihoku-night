@@ -3,576 +3,474 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>きほくナイト Vol.2 — 若者でただ飲む会（持ち寄り）</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>きほくナイト Vol.3 — ぼくたちのAI事情</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: { DEFAULT: '#1e293b', dark: '#0f172a' },
-            gold: { DEFAULT: '#fbbf24', deep: '#f59e0b' },
-            ink: { DEFAULT: '#4a4a4a', dark: '#2d2d2d' },
-            cream: { DEFAULT: '#fffbeb', light: '#f8fafc' },
-          },
-          fontFamily: {
-            serif: ['"Noto Serif JP"', 'serif'],
-            sans: ['"Noto Sans JP"', 'sans-serif'],
-          },
-        }
-      }
-    }
-  </script>
   <style>
-    body { font-family: 'Noto Serif JP', serif; background-color: #fffbeb; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* paper texture overlay */
-    .paper-texture {
-      position: relative;
-    }
-    .paper-texture::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
+    :root {
+      --navy: #1e293b;
+      --navy-dark: #0f172a;
+      --gold: #fbbf24;
+      --gold-deep: #f59e0b;
+      --ink: #4a4a4a;
+      --ink-dark: #2d2d2d;
+      --cream: #fffbeb;
+      --cream-light: #fef3c7;
     }
 
-    /* hand-drawn underline */
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background-color: var(--cream);
+      color: var(--ink-dark);
+    }
+
+    /* ── Animations ── */
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .float-anim { animation: float 4s ease-in-out infinite; }
+    .star { position: absolute; border-radius: 50%; background: #fef3c7; }
+    .s1 { animation: shimmer 2.5s ease-in-out infinite; }
+    .s2 { animation: shimmer 3.2s ease-in-out infinite 0.8s; }
+    .s3 { animation: shimmer 2.8s ease-in-out infinite 1.5s; }
+
+    /* ── Shared ── */
+    .section-label {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .section-label span { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; }
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-deep));
+      border-radius: 4px; margin: 0 auto 24px;
+    }
     .hand-underline {
-      text-decoration: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='8'%3E%3Cpath d='M0 5 Q20 2 40 5 Q60 8 80 4 Q100 1 120 5 Q140 9 160 4 Q180 1 200 5' stroke='%23fbbf24' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: repeat-x;
       background-position: bottom;
       background-size: 200px 8px;
       padding-bottom: 8px;
     }
+    .wave { line-height: 0; display: block; }
+    .wave svg { display: block; width: 100%; }
 
-    /* organic blob shape */
-    .blob-bg {
-      clip-path: polygon(5% 0%, 95% 2%, 100% 90%, 80% 100%, 20% 98%, 0% 88%);
-    }
-
-    /* star shimmer animation */
-    @keyframes shimmer {
-      0%, 100% { opacity: 0.4; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.15); }
-    }
-    .star-shimmer { animation: shimmer 2.5s ease-in-out infinite; }
-    .star-shimmer-2 { animation: shimmer 3.2s ease-in-out infinite 0.8s; }
-    .star-shimmer-3 { animation: shimmer 2.8s ease-in-out infinite 1.5s; }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-    }
-    .float-anim { animation: float 4s ease-in-out infinite; }
-
-    .section-divider {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #fbbf24, #f59e0b);
-      border-radius: 4px;
-      margin: 0 auto 1.5rem;
-    }
-
-    /* card hover */
-    .rule-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .rule-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(30, 41, 59, 0.15);
-    }
-
-    /* CTA button */
+    /* ── CTA Button ── */
     .cta-btn {
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 4px 18px rgba(251, 191, 36, 0.45);
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 32px; border-radius: 9999px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-deep));
+      color: var(--navy-dark); font-weight: 700; font-size: 1rem;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(251,191,36,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .cta-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 8px 28px rgba(251, 191, 36, 0.6);
+    .cta-btn:hover { transform: translateY(-2px) scale(1.03); box-shadow: 0 8px 28px rgba(251,191,36,0.6); }
+    .cta-btn svg { flex-shrink: 0; }
+
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+    .hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 60%, #1e3a5f 100%);
     }
-    .cta-btn:active {
-      transform: translateY(0) scale(0.99);
+    .hero-stars { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
+      padding: 80px 24px 60px;
+    }
+    .hero-logo { margin-bottom: 24px; }
+    .hero-logo img {
+      display: block; border-radius: 20px; width: 220px;
+      box-shadow: 0 0 50px rgba(251,191,36,0.35), 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .hero-catch {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1rem, 3.5vw, 1.35rem);
+      color: #fef3c7; margin-bottom: 20px; line-height: 1.8;
+    }
+    .hero-catch .hl { color: #fcd34d; font-weight: 600; }
+    .hero-lead {
+      color: #cbd5e1; font-size: clamp(0.85rem, 2.5vw, 1rem);
+      max-width: 480px; margin-bottom: 40px; line-height: 1.9;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .hero-date { margin-top: 12px; color: #94a3b8; font-size: 14px; font-family: 'Noto Sans JP', sans-serif; }
+
+    /* ════════════════════════════════════════
+       ABOUT
+    ════════════════════════════════════════ */
+    .about { background: var(--cream); padding: 80px 24px; }
+    .about-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .about h2 {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1.5rem, 4vw, 2rem); color: var(--navy); margin-bottom: 28px;
+    }
+    .about-catchcopy {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1rem, 2.8vw, 1.2rem); color: var(--gold-deep);
+      margin-bottom: 28px; line-height: 1.7;
+    }
+    .about-body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(0.88rem, 2.2vw, 0.97rem);
+      color: var(--ink); line-height: 2; text-align: left;
+    }
+
+    /* ════════════════════════════════════════
+       RULES
+    ════════════════════════════════════════ */
+    .rules { background: var(--cream-light); padding: 80px 24px; }
+    .rules-inner { max-width: 900px; margin: 0 auto; }
+    .rules-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--navy);
+      text-align: center; margin-bottom: 48px;
+    }
+    .rules-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;
+    }
+    .rule-card {
+      background: var(--cream); border: 1.5px solid #fde68a;
+      border-radius: 20px; padding: 28px; position: relative; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(30,41,59,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .rule-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(30,41,59,0.15); }
+    .rule-num {
+      position: absolute; top: 12px; right: 16px;
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: 4.5rem; color: #fde68a; line-height: 1; user-select: none;
+    }
+    .rule-icon { margin-bottom: 16px; color: var(--navy); }
+    .rule-icon svg { width: 28px; height: 28px; }
+    .rule-card h3 {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: 1.05rem; color: var(--navy); margin-bottom: 12px;
+    }
+    .rule-card p { font-size: 14px; color: var(--ink); line-height: 1.8; font-family: 'Noto Sans JP', sans-serif; }
+
+    /* ════════════════════════════════════════
+       EVENT CARD
+    ════════════════════════════════════════ */
+    .event { background: var(--cream); padding: 80px 24px; }
+    .event-inner { max-width: 720px; margin: 0 auto; }
+    .event-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--navy);
+      text-align: center; margin-bottom: 48px;
+    }
+    .event-card {
+      border: 2px solid var(--gold); border-radius: 24px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(30,41,59,0.12);
+    }
+    .event-card-header {
+      background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+      padding: 20px 32px; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .badge {
+      display: inline-block; padding: 4px 12px; border-radius: 9999px;
+      font-size: 12px; font-weight: 700; font-family: 'Noto Sans JP', sans-serif;
+      letter-spacing: 2px;
+    }
+    .badge-new { background: var(--gold); color: var(--navy-dark); }
+    .badge-open { background: rgba(251,191,36,0.2); color: var(--gold); border: 1px solid var(--gold); }
+    .event-vol { color: #fbbf24; font-family: 'Noto Sans JP', sans-serif; font-size: 14px; letter-spacing: 4px; }
+    .event-card-body { background: #fff; padding: 32px; }
+    .event-card-body h3 {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem); color: var(--navy);
+      line-height: 1.4; margin-bottom: 12px;
+    }
+    .event-card-body h3 .accent { color: var(--gold-deep); }
+    .event-card-body .desc {
+      font-size: 14px; color: var(--ink); line-height: 1.8; margin-bottom: 24px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .event-details { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .event-detail {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: var(--ink-dark); font-family: 'Noto Sans JP', sans-serif;
+    }
+    .event-detail svg { color: var(--gold-deep); flex-shrink: 0; }
+    .event-divider {
+      height: 1px; background: linear-gradient(90deg, transparent, #fde68a, transparent);
+      margin: 24px 0;
+    }
+    .bring-box {
+      background: var(--cream-light); border: 1.5px solid #fde68a;
+      border-radius: 16px; padding: 24px;
+    }
+    .bring-box .bring-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      color: var(--navy); margin-bottom: 12px; font-size: 1rem;
+    }
+    .bring-box .bring-desc {
+      font-size: 14px; color: var(--ink); line-height: 1.8; margin-bottom: 16px;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+    .bring-inner {
+      background: var(--cream); border: 1px solid var(--gold);
+      border-radius: 12px; padding: 16px;
+    }
+    .bring-inner p { font-size: 14px; line-height: 1.8; font-family: 'Noto Sans JP', sans-serif; }
+    .bring-inner .bring-inner-title { font-weight: 700; color: #92400e; margin-bottom: 4px; }
+    .bring-inner .bring-inner-body { color: var(--ink); }
+    .event-cta { margin-top: 32px; text-align: center; }
+    .event-cta .cta-note {
+      margin-top: 12px; font-size: 12px; color: #9ca3af;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    .footer {
+      position: relative;
+      background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 100%);
+      padding: 64px 24px;
+    }
+    .footer-stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .footer-inner {
+      position: relative; z-index: 1; max-width: 640px;
+      margin: 0 auto; text-align: center;
+    }
+    .footer-logo { display: inline-block; margin-bottom: 24px; }
+    .footer-logo img {
+      display: block; width: 130px; border-radius: 16px;
+      box-shadow: 0 0 30px rgba(251,191,36,0.25), 0 4px 20px rgba(0,0,0,0.4);
+    }
+    .footer-tagline { color: #94a3b8; font-size: 14px; margin-bottom: 32px; font-family: 'Noto Sans JP', sans-serif; }
+    .footer-divider {
+      height: 1px; background: linear-gradient(90deg, transparent, rgba(251,191,36,0.3), transparent);
+      margin: 40px 0 24px;
+    }
+    .footer-copy { color: #6b7280; font-size: 12px; font-family: 'Noto Sans JP', sans-serif; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .hero-inner { padding: 60px 20px 40px; }
+      .about, .rules, .event { padding: 60px 20px; }
     }
   </style>
 </head>
 <body>
-  <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
-
-    /* ─── Logo SVG (placeholder – swap out <img> when image_8.png is ready) ─── */
-    const LogoSVG = ({ size = 140 }) => (
-      <svg width={size} height={size} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="skyGrad" cx="50%" cy="60%" r="55%">
-            <stop offset="0%" stopColor="#1e3a5f" />
-            <stop offset="100%" stopColor="#0f172a" />
-          </radialGradient>
-          <radialGradient id="moonGrad" cx="40%" cy="40%" r="50%">
-            <stop offset="0%" stopColor="#fef3c7" />
-            <stop offset="100%" stopColor="#fbbf24" />
-          </radialGradient>
-        </defs>
-        {/* outer circle – night sky */}
-        <circle cx="100" cy="100" r="95" fill="url(#skyGrad)" stroke="#fbbf24" strokeWidth="2.5" />
-        {/* stars */}
-        <circle cx="50" cy="45" r="2" fill="#fef3c7" className="star-shimmer" />
-        <circle cx="148" cy="38" r="1.5" fill="#fef3c7" className="star-shimmer-2" />
-        <circle cx="165" cy="72" r="2.2" fill="#fef9c3" className="star-shimmer-3" />
-        <circle cx="35" cy="85" r="1.4" fill="#fef3c7" className="star-shimmer" />
-        <circle cx="170" cy="130" r="1.8" fill="#fef3c7" className="star-shimmer-2" />
-        <circle cx="60" cy="150" r="1.5" fill="#fef9c3" className="star-shimmer-3" />
-        {/* moon */}
-        <circle cx="105" cy="78" r="30" fill="url(#moonGrad)" />
-        <circle cx="118" cy="68" r="24" fill="#1e3a5f" />
-        {/* lemon slice hint – oval organic shape */}
-        <ellipse cx="100" cy="138" rx="32" ry="20" fill="#fbbf24" opacity="0.9" />
-        <ellipse cx="100" cy="138" rx="24" ry="13" fill="#fef3c7" opacity="0.9" />
-        <line x1="100" y1="125" x2="100" y2="151" stroke="#fbbf24" strokeWidth="1.5" />
-        <line x1="87" y1="128" x2="113" y2="148" stroke="#fbbf24" strokeWidth="1.5" />
-        <line x1="113" y1="128" x2="87" y2="148" stroke="#fbbf24" strokeWidth="1.5" />
-        {/* text KIHOKU inside */}
-        <text x="100" y="172" textAnchor="middle" fill="#fbbf24" fontSize="11" fontFamily="serif" letterSpacing="3" fontWeight="600">KIHOKU</text>
-      </svg>
-    );
-
-    /* ─── Icons (lucide-style inline SVGs) ─── */
-    const IconCalendar = () => (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-      </svg>
-    );
-    const IconMapPin = () => (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-      </svg>
-    );
-    const IconUsers = () => (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
-      </svg>
-    );
-    const IconStar = () => (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-      </svg>
-    );
-    const IconArrowRight = () => (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-      </svg>
-    );
-    const IconShield = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-    );
-    const IconHeart = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
-      </svg>
-    );
-    const IconCompass = () => (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-      </svg>
-    );
-
-    const GOOGLE_FORM_URL = "https://forms.gle/ji184ZXZ3kNQdju1A";
-
-    /* ─── Decorative wavy divider ─── */
-    const WaveDivider = ({ flip = false, fromColor = "#fffbeb", toColor = "#1e293b" }) => (
-      <div style={{ lineHeight: 0, transform: flip ? 'scaleY(-1)' : 'none' }}>
-        <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '60px' }}>
-          <path d="M0,30 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1380,10 1440,30 L1440,60 L0,60 Z" fill={toColor} />
-        </svg>
+  <!-- ════ HERO ════ -->
+  <section class="hero">
+    <div class="hero-stars" id="heroStars"></div>
+    <div class="hero-inner">
+      <div class="hero-logo float-anim">
+        <img src="logo.jpg" alt="きほくナイト" />
       </div>
-    );
+      <p class="hero-catch">
+        難しい話はなし。<br>
+        <span class="hl hand-underline">みんなのリアルなAI事情、聞かせて。</span>
+      </p>
+      <p class="hero-lead">
+        「こんな風に使ってるよ！」も「まだ全然使ってないけど…」も、<br>
+        等身大でゆるくシェアしましょう。
+      </p>
+      <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfZjL_SULywfU8-vp_mYre2UQbvKPxHB7fXQSAWtgawu0lXxQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+        Vol.3 に参加申し込む
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <p class="hero-date">6月30日（火）開催 ／ 参加費無料</p>
+    </div>
+    <div class="wave">
+      <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60"><path d="M0,30 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1380,10 1440,30 L1440,60 L0,60 Z" fill="#fffbeb"/></svg>
+    </div>
+  </section>
 
-    /* ─── Main App ─── */
-    const App = () => {
-      return (
-        <div className="min-h-screen" style={{ backgroundColor: '#fffbeb', color: '#2d2d2d' }}>
+  <!-- ════ ABOUT ════ -->
+  <section class="about">
+    <div class="about-inner">
+      <div class="section-label">
+        <span style="color:#fbbf24;">★</span>
+        <span style="color:#f59e0b;">About</span>
+        <span style="color:#fbbf24;">★</span>
+      </div>
+      <div class="divider"></div>
+      <h2>きほくナイトとは？</h2>
 
-          {/* ════════════════════════════════════════
-              HERO SECTION
-          ════════════════════════════════════════ */}
-          <section
-            className="relative overflow-hidden paper-texture"
-            style={{ background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 60%, #1e3a5f 100%)' }}
-          >
-            {/* decorative star dots */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {[
-                [12, 8], [25, 15], [75, 5], [88, 12], [95, 25],
-                [8, 35], [18, 55], [90, 45], [82, 68], [70, 10],
-                [45, 20], [55, 8], [35, 30], [60, 85], [15, 75],
-              ].map(([x, y], i) => (
-                <div
-                  key={i}
-                  className={`absolute rounded-full bg-amber-100 ${i % 3 === 0 ? 'star-shimmer' : i % 3 === 1 ? 'star-shimmer-2' : 'star-shimmer-3'}`}
-                  style={{
-                    left: `${x}%`, top: `${y}%`,
-                    width: `${(i % 3) + 2}px`, height: `${(i % 3) + 2}px`,
-                    opacity: 0.5,
-                  }}
-                />
-              ))}
-            </div>
+      <p class="about-catchcopy">「自分と地域をちょっと良くする、ゆるい持ち寄り会議」</p>
 
-            <div className="relative z-10 flex flex-col items-center justify-center px-6 py-20 text-center">
-              {/* Logo */}
-              <div className="float-anim mb-6">
-                <img src="logo.jpg" alt="きほくナイト" width="220"
-                  style={{
-                    display: 'block',
-                    borderRadius: '20px',
-                    boxShadow: '0 0 50px rgba(251,191,36,0.35), 0 8px 32px rgba(0,0,0,0.5)',
-                  }} />
-              </div>
+      <p class="about-body">行政の枠も、仕事の肩書きも、ちょっと横に置いて、月に一度集まる「ゆるい作戦会議」です。成功体験も地域の「どうする？」も持ち寄って、対話の中で混ぜ合わせる。終わる頃には、明日の一歩が少しだけ軽くなっている——そんな夜を、紀北町から始めています。</p>
+    </div>
+  </section>
 
-              {/* Catchcopy */}
-              <p className="font-serif text-amber-100 mb-5 max-w-lg leading-relaxed"
-                style={{ fontSize: 'clamp(1rem, 3.5vw, 1.35rem)' }}>
-                ただ飲む、ただ話す。<br />
-                <span className="hand-underline text-amber-300 font-semibold">紀北の夜のたまり場。</span>
-              </p>
+  <!-- wave -->
+  <div class="wave" style="background:#fffbeb;">
+    <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50"><path d="M0,25 C200,50 400,0 600,25 C800,50 1000,0 1200,25 C1300,37 1380,15 1440,25 L1440,50 L0,50 Z" fill="#fef3c7"/></svg>
+  </div>
 
-              {/* Lead text */}
-              <p className="text-slate-300 max-w-md mb-10 leading-relaxed"
-                style={{ fontSize: 'clamp(0.85rem, 2.5vw, 1rem)' }}>
-                仕事終わりにふらっと寄って、好きなものを飲んで、<br className="hidden sm:block" />気の向くままに話す。
-              </p>
-
-              {/* CTA Button */}
-              <a
-                href={GOOGLE_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-navy-dark"
-                style={{ fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)', color: '#0f172a' }}
-              >
-                Vol.2 に参加申し込む
-                <IconArrowRight />
-              </a>
-
-              <p className="mt-3 text-slate-400 text-sm">2026年4月24日（金）開催 ／ 参加費無料・持ち寄り制</p>
-            </div>
-
-            {/* wave bottom */}
-            <WaveDivider toColor="#fffbeb" />
-          </section>
-
-          {/* ════════════════════════════════════════
-              INTRODUCTION
-          ════════════════════════════════════════ */}
-          <section className="py-20 px-6 paper-texture" style={{ backgroundColor: '#fffbeb' }}>
-            <div className="max-w-2xl mx-auto text-center">
-              <div className="flex items-center justify-center gap-2 mb-3">
-                <span className="text-amber-400"><IconStar /></span>
-                <span className="text-amber-500 text-sm font-sans tracking-widest uppercase">About</span>
-                <span className="text-amber-400"><IconStar /></span>
-              </div>
-              <div className="section-divider"></div>
-              <h2 className="font-serif font-bold text-navy mb-8"
-                style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', color: '#1e293b' }}>
-                きほくナイトとは？
-              </h2>
-
-              <div className="relative">
-                {/* decorative quote mark */}
-                <span className="absolute -top-6 -left-2 text-amber-200 font-serif select-none"
-                  style={{ fontSize: '6rem', lineHeight: 1, opacity: 0.5 }}>"</span>
-
-                <div className="relative z-10 text-left space-y-5 leading-8"
-                  style={{ color: '#4a4a4a', fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)' }}>
-                  <p>
-                    Vol.2は、テーマなしの<strong className="text-navy" style={{color:'#1e293b'}}>「ただ飲む、ただ話す。」</strong>会。
-                    決まったお題も、発表も、ありません。
-                  </p>
-                  <p>
-                    好きなものを持ち寄って、好きな人と、好きなだけ話す。
-                    途中参加・途中退出、全然OKです🙆‍♂️
-                  </p>
-                  <p>
-                    いろんな人とつながれる、<span className="hand-underline" style={{backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='8'%3E%3Cpath d='M0 5 Q20 2 40 5 Q60 8 80 4 Q100 1 120 5 Q140 9 160 4 Q180 1 200 5' stroke='%23fbbf24' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\")"}}>紀北の夜のたまり場</span>を
-                    一緒に作りましょう🌙🐟
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* wave */}
-          <div style={{ lineHeight: 0, backgroundColor: '#fffbeb' }}>
-            <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '50px' }}>
-              <path d="M0,25 C200,50 400,0 600,25 C800,50 1000,0 1200,25 C1300,37 1380,15 1440,25 L1440,50 L0,50 Z" fill="#fef3c7" />
-            </svg>
+  <!-- ════ RULES ════ -->
+  <section class="rules">
+    <div class="rules-inner">
+      <div class="section-label">
+        <span style="color:#f59e0b;">★</span>
+        <span style="color:#d97706;">Rules</span>
+        <span style="color:#f59e0b;">★</span>
+      </div>
+      <div class="divider"></div>
+      <h2 class="rules-title">きほくナイトの「3つの鉄則」</h2>
+      <div class="rules-grid">
+        <div class="rule-card">
+          <span class="rule-num">01</span>
+          <div class="rule-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-
-          {/* ════════════════════════════════════════
-              THREE RULES
-          ════════════════════════════════════════ */}
-          <section className="py-20 px-6" style={{ backgroundColor: '#fef3c7' }}>
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-12">
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <span className="text-amber-500"><IconStar /></span>
-                  <span className="text-amber-600 text-sm font-sans tracking-widest uppercase">Rules</span>
-                  <span className="text-amber-500"><IconStar /></span>
-                </div>
-                <div className="section-divider"></div>
-                <h2 className="font-serif font-bold"
-                  style={{ fontSize: 'clamp(1.4rem, 4vw, 1.9rem)', color: '#1e293b' }}>
-                  きほくナイトの「3つの鉄則」
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  {
-                    num: '01',
-                    icon: <IconShield />,
-                    title: '肩書きにとらわれない',
-                    body: '専門性はリスペクトしつつ、立場の壁を越えてフラットに語る。',
-                  },
-                  {
-                    num: '02',
-                    icon: <IconHeart />,
-                    title: '成功も悩みも、等身大で',
-                    body: 'カッコいい「できた！」も、泥臭い「困った」も、みんなの学びに変える。',
-                  },
-                  {
-                    num: '03',
-                    icon: <IconCompass />,
-                    title: '越境を面白がる',
-                    body: '自分の町、自分の業種の外側にこそ、ブレイクスルーの鍵がある。境界を越える刺激を楽しむ。',
-                  },
-                ].map(({ num, icon, title, body }) => (
-                  <div
-                    key={num}
-                    className="rule-card rounded-2xl p-7 relative overflow-hidden"
-                    style={{ backgroundColor: '#fffbeb', border: '1.5px solid #fde68a', boxShadow: '0 4px 20px rgba(30,41,59,0.08)' }}
-                  >
-                    {/* number watermark */}
-                    <span
-                      className="absolute top-3 right-4 font-serif font-bold select-none"
-                      style={{ fontSize: '4.5rem', color: '#fde68a', lineHeight: 1 }}
-                    >{num}</span>
-
-                    <div className="relative z-10">
-                      <div className="mb-4" style={{ color: '#1e293b' }}>{icon}</div>
-                      <h3 className="font-serif font-bold text-navy mb-3"
-                        style={{ fontSize: '1.05rem', color: '#1e293b' }}>
-                        {title}
-                      </h3>
-                      <p className="leading-7 text-sm" style={{ color: '#4a4a4a' }}>{body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* wave */}
-          <div style={{ lineHeight: 0, backgroundColor: '#fef3c7' }}>
-            <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '50px' }}>
-              <path d="M0,0 C360,50 720,0 1080,50 C1260,75 1380,20 1440,0 L1440,50 L0,50 Z" fill="#fffbeb" />
-            </svg>
-          </div>
-
-          {/* ════════════════════════════════════════
-              EVENT INFO Vol.1
-          ════════════════════════════════════════ */}
-          <section className="py-20 px-6 paper-texture" style={{ backgroundColor: '#fffbeb' }}>
-            <div className="max-w-3xl mx-auto">
-              <div className="text-center mb-12">
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <span className="text-amber-400"><IconStar /></span>
-                  <span className="text-amber-500 text-sm font-sans tracking-widest uppercase">Event</span>
-                  <span className="text-amber-400"><IconStar /></span>
-                </div>
-                <div className="section-divider"></div>
-                <h2 className="font-serif font-bold"
-                  style={{ fontSize: 'clamp(1.4rem, 4vw, 1.9rem)', color: '#1e293b' }}>
-                  最新イベント情報
-                </h2>
-              </div>
-
-              {/* Event Card */}
-              <div
-                className="rounded-3xl overflow-hidden"
-                style={{ border: '2px solid #fbbf24', boxShadow: '0 8px 40px rgba(30,41,59,0.12)' }}
-              >
-                {/* Card header */}
-                <div
-                  className="px-8 py-5 flex items-center justify-between flex-wrap gap-3"
-                  style={{ background: 'linear-gradient(135deg, #1e293b, #0f172a)' }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="px-3 py-1 rounded-full text-xs font-bold font-sans tracking-wider"
-                      style={{ backgroundColor: '#fbbf24', color: '#0f172a' }}
-                    >NEW</span>
-                    <span
-                      className="px-3 py-1 rounded-full text-xs font-bold font-sans tracking-wider"
-                      style={{ backgroundColor: 'rgba(251,191,36,0.2)', color: '#fbbf24', border: '1px solid #fbbf24' }}
-                    >募集中</span>
-                  </div>
-                  <span className="text-amber-400 font-sans text-sm tracking-widest">Vol.2</span>
-                </div>
-
-                {/* Card body */}
-                <div className="p-8" style={{ backgroundColor: '#fff' }}>
-                  <h3
-                    className="font-serif font-bold leading-snug mb-3"
-                    style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.5rem)', color: '#1e293b' }}
-                  >
-                    きほくナイト Vol.2<br />
-                    <span className="text-amber-500">若者でただ飲む会（持ち寄り）</span>
-                  </h3>
-                  <p className="text-sm mb-6 leading-relaxed" style={{ color: '#4a4a4a' }}>
-                    テーマなし。決まった議題なし。ただ飲んで、ただ話す。それだけ。
-                  </p>
-
-                  {/* Details */}
-                  <div className="space-y-3 mb-8">
-                    {[
-                      { icon: <IconCalendar />, text: '2026年4月24日（金） 18:00 〜 22:00（途中参加・退出OK）' },
-                      { icon: <IconMapPin />, text: 'まちライブラリー＠きほく' },
-                      { icon: <IconUsers />, text: '参加費：無料（持ち寄り制）' },
-                    ].map(({ icon, text }, i) => (
-                      <div key={i} className="flex items-center gap-3 text-sm" style={{ color: '#2d2d2d' }}>
-                        <span style={{ color: '#f59e0b', flexShrink: 0 }}>{icon}</span>
-                        <span className="font-sans">{text}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Divider */}
-                  <div className="my-6" style={{ height: '1px', background: 'linear-gradient(90deg, transparent, #fde68a, transparent)' }} />
-
-                  {/* Bring info */}
-                  <div
-                    className="rounded-2xl p-6"
-                    style={{ backgroundColor: '#fef3c7', border: '1.5px solid #fde68a' }}
-                  >
-                    <p className="font-serif font-bold mb-3" style={{ color: '#1e293b' }}>
-                      🎒 持ち物
-                    </p>
-                    <p className="text-sm leading-relaxed mb-4" style={{ color: '#4a4a4a' }}>
-                      自分の飲み物・食べ物をお持ちください。差し入れも大歓迎です！
-                    </p>
-                    <div
-                      className="rounded-xl p-4"
-                      style={{ backgroundColor: '#fffbeb', border: '1px solid #fbbf24' }}
-                    >
-                      <p className="text-sm font-bold mb-1" style={{ color: '#92400e' }}>
-                        🍋 マイヤーレモン果汁を用意します
-                      </p>
-                      <p className="text-sm leading-relaxed" style={{ color: '#4a4a4a' }}>
-                        ハイボール・カルピス・炭酸水などで割って楽しんでください☺️
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="mt-8 text-center">
-                    <a
-                      href={GOOGLE_FORM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold"
-                      style={{ color: '#0f172a', fontSize: '1rem' }}
-                    >
-                      参加申し込みはこちら
-                      <IconArrowRight />
-                    </a>
-                    <p className="mt-3 text-xs font-sans" style={{ color: '#9ca3af' }}>
-                      Googleフォームに遷移します。参加費無料。
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* wave to footer */}
-          <div style={{ lineHeight: 0, backgroundColor: '#fffbeb' }}>
-            <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block', width: '100%', height: '60px' }}>
-              <path d="M0,30 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1380,10 1440,30 L1440,60 L0,60 Z" fill="#0f172a" />
-            </svg>
-          </div>
-
-          {/* ════════════════════════════════════════
-              FOOTER
-          ════════════════════════════════════════ */}
-          <footer
-            className="relative paper-texture py-16 px-6"
-            style={{ background: 'linear-gradient(160deg, #0f172a 0%, #1e293b 100%)' }}
-          >
-            {/* stars in footer */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {[[10,20],[30,40],[70,15],[85,35],[50,55],[20,70],[65,75],[90,60]].map(([x,y],i) => (
-                <div key={i} className={`absolute rounded-full bg-amber-100 ${i%2===0?'star-shimmer':'star-shimmer-2'}`}
-                  style={{ left:`${x}%`, top:`${y}%`, width:'2px', height:'2px', opacity:0.3 }} />
-              ))}
-            </div>
-
-            <div className="relative z-10 max-w-2xl mx-auto text-center">
-              {/* Logo */}
-              <div className="float-anim inline-block mb-6">
-                <img src="logo.jpg" alt="きほくナイト" width="130"
-                  style={{
-                    display: 'block',
-                    borderRadius: '16px',
-                    boxShadow: '0 0 30px rgba(251,191,36,0.25), 0 4px 20px rgba(0,0,0,0.4)',
-                  }} />
-              </div>
-
-              <p className="text-slate-400 text-sm mb-8">
-                ただ飲む、ただ話す。紀北の夜のたまり場。
-              </p>
-
-              {/* Final CTA */}
-              <a
-                href={GOOGLE_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cta-btn inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold mb-10"
-                style={{ color: '#0f172a', fontSize: '1rem' }}
-              >
-                Vol.2 に参加申し込む
-                <IconArrowRight />
-              </a>
-
-              {/* Divider */}
-              <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(251,191,36,0.3), transparent)', marginBottom: '1.5rem' }} />
-
-              <p className="text-slate-500 text-xs font-sans">
-                © きほくナイト実行委員会
-              </p>
-            </div>
-          </footer>
-
+          <h3>肩書きにとらわれない</h3>
+          <p>専門性はリスペクトしつつ、立場の壁を越えてフラットに語る。</p>
         </div>
-      );
-    };
+        <div class="rule-card">
+          <span class="rule-num">02</span>
+          <div class="rule-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <h3>成功も悩みも、等身大で</h3>
+          <p>カッコいい「できた！」も、泥臭い「困った」も、みんなの学びに変える。</p>
+        </div>
+        <div class="rule-card">
+          <span class="rule-num">03</span>
+          <div class="rule-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <h3>越境を面白がる</h3>
+          <p>自分の町、自分の業種の外側にこそ、ブレイクスルーの鍵がある。境界を越える刺激を楽しむ。</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  <!-- wave -->
+  <div class="wave" style="background:#fef3c7;">
+    <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50"><path d="M0,0 C360,50 720,0 1080,50 C1260,75 1380,20 1440,0 L1440,50 L0,50 Z" fill="#fffbeb"/></svg>
+  </div>
+
+  <!-- ════ EVENT ════ -->
+  <section class="event">
+    <div class="event-inner">
+      <div class="section-label">
+        <span style="color:#fbbf24;">★</span>
+        <span style="color:#f59e0b;">Event</span>
+        <span style="color:#fbbf24;">★</span>
+      </div>
+      <div class="divider"></div>
+      <h2 class="event-title">最新イベント情報</h2>
+      <div class="event-card">
+        <div class="event-card-header">
+          <div style="display:flex;gap:8px;align-items:center;">
+            <span class="badge badge-new">NEW</span>
+            <span class="badge badge-open">募集中</span>
+          </div>
+          <span class="event-vol">Vol.3</span>
+        </div>
+        <div class="event-card-body">
+          <h3>
+            きほくナイト Vol.3<br>
+            <span class="accent">ぼくたちのAI事情</span>
+          </h3>
+          <p class="desc">みんなが普段どうやってAIを使っているか？をゆるくシェアし合う夜。難しい話なし。まだ全然使っていない方も大歓迎、等身大で語り合いましょう。</p>
+
+          <div class="event-details">
+            <div class="event-detail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              6月30日（火） 19:00 〜 21:00（途中参加・退出OK）
+            </div>
+            <div class="event-detail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              まちライブラリー＠きほく
+            </div>
+            <div class="event-detail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              参加費：無料
+            </div>
+          </div>
+
+          <div class="event-divider"></div>
+
+          <div class="bring-box">
+            <p class="bring-title">🎒 持ち物</p>
+            <p class="bring-desc">PCやスマホの持参OK！テザリング推奨です。</p>
+            <div class="bring-inner">
+              <p class="bring-inner-title">💡 こんなことシェアしよう</p>
+              <p class="bring-inner-body">日々の事務作業でのAI活用、ちょっとしたコツ、「まだ全然使えてない…」というリアルな声も大歓迎☺️</p>
+            </div>
+          </div>
+
+          <div class="event-cta">
+            <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfZjL_SULywfU8-vp_mYre2UQbvKPxHB7fXQSAWtgawu0lXxQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+              Vol.3 に参加申し込む
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <p class="cta-note">Googleフォームに遷移します。参加費無料。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- wave to footer -->
+  <div class="wave" style="background:#fffbeb;">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60"><path d="M0,30 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1380,10 1440,30 L1440,60 L0,60 Z" fill="#0f172a"/></svg>
+  </div>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="footer">
+    <div class="footer-stars" id="footerStars"></div>
+    <div class="footer-inner">
+      <div class="footer-logo float-anim">
+        <img src="logo.jpg" alt="きほくナイト" />
+      </div>
+      <p class="footer-tagline">みんなのリアルなAI事情、聞かせて。紀北の夜のたまり場。</p>
+      <a class="cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfZjL_SULywfU8-vp_mYre2UQbvKPxHB7fXQSAWtgawu0lXxQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">
+        Vol.3 に参加申し込む
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <div class="footer-divider"></div>
+      <p class="footer-copy">© きほくナイト実行委員会</p>
+    </div>
+  </footer>
+
+  <script>
+    // Generate star dots in hero
+    const heroStars = [
+      [12,8,'s1',2],[25,15,'s2',1.5],[75,5,'s3',2.2],[88,12,'s1',1.4],
+      [95,25,'s2',1.8],[8,35,'s3',2],[18,55,'s1',1.5],[90,45,'s2',2],
+      [82,68,'s3',1.8],[70,10,'s1',2],[45,20,'s2',1.5],[55,8,'s3',2.2],
+      [35,30,'s1',1.4],[60,85,'s2',2],[15,75,'s3',1.5],
+    ];
+    const heroEl = document.getElementById('heroStars');
+    heroStars.forEach(([x,y,cls,size]) => {
+      const d = document.createElement('div');
+      d.className = 'star ' + cls;
+      d.style.cssText = `left:${x}%;top:${y}%;width:${size}px;height:${size}px;opacity:0.5;`;
+      heroEl.appendChild(d);
+    });
+
+    // Generate star dots in footer
+    const footerStars = [[10,20,'s1'],[30,40,'s2'],[70,15,'s1'],[85,35,'s2'],[50,55,'s1'],[20,70,'s2'],[65,75,'s1'],[90,60,'s2']];
+    const footerEl = document.getElementById('footerStars');
+    footerStars.forEach(([x,y,cls]) => {
+      const d = document.createElement('div');
+      d.className = 'star ' + cls;
+      d.style.cssText = `left:${x}%;top:${y}%;width:2px;height:2px;opacity:0.3;`;
+      footerEl.appendChild(d);
+    });
   </script>
 </body>
 </html>
