@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>きほくナイト Vol.4 — どうしたら、"知り合い"になれる？</title>
+  <title>きほくナイト Vol.5 — 赤羽川と銚子川、ごはんでめぐる紀北町。</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -108,6 +108,28 @@
       font-family: 'Noto Sans JP', sans-serif;
     }
     .hero-date { margin-top: 12px; color: #94a3b8; font-size: 14px; font-family: 'Noto Sans JP', sans-serif; }
+    .hero-vol {
+      font-family: 'Noto Sans JP', sans-serif; font-weight: 700;
+      color: var(--gold); font-size: 13px; letter-spacing: 4px; margin-bottom: 14px;
+    }
+    .hero-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1.35rem, 5.4vw, 2rem); color: #fef3c7;
+      line-height: 1.9; margin-bottom: 20px;
+    }
+    .hero-title .hl { color: #fcd34d; }
+    .hero-info {
+      width: 100%; max-width: 420px; margin: 0 auto 32px;
+      padding: 18px 20px; border-radius: 16px;
+      background: rgba(15,23,42,0.45); border: 1px solid rgba(251,191,36,0.35);
+      font-family: 'Noto Sans JP', sans-serif; color: #e2e8f0;
+      font-size: 14px; line-height: 1.8;
+    }
+    .hero-info-date { font-size: 16px; font-weight: 700; color: #fef3c7; }
+    .hero-info-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .hero-info-badges .badge { letter-spacing: 1px; }
+    .badge-strong { background: var(--gold); color: var(--navy-dark); }
+    .badge-soft { background: rgba(251,191,36,0.15); color: #fde68a; border: 1px solid rgba(251,191,36,0.5); }
 
     /* ════════════════════════════════════════
        ABOUT
@@ -157,6 +179,92 @@
     .themes-note {
       text-align: center; font-family: 'Noto Sans JP', sans-serif;
       color: var(--ink); font-size: 14px; line-height: 1.9;
+    }
+    .nobr { display: inline-block; }
+
+    /* ════════════════════════════════════════
+       FLOW (当日の流れ)
+    ════════════════════════════════════════ */
+    .flow { background: var(--cream-light); padding: 80px 24px; }
+    .flow-inner { max-width: 720px; margin: 0 auto; }
+    .flow-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--navy);
+      text-align: center; margin-bottom: 24px;
+    }
+    .flow-summary {
+      display: flex; justify-content: center; align-items: center; flex-wrap: wrap;
+      gap: 6px 8px; margin-bottom: 36px;
+      font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy);
+    }
+    .flow-summary .chip {
+      padding: 4px 12px; border-radius: 9999px;
+      background: var(--cream); border: 1.5px solid #fde68a;
+    }
+    .flow-summary .arrow { color: var(--gold-deep); }
+    .flow-list { list-style: none; position: relative; }
+    .flow-list::before {
+      content: ""; position: absolute; left: 21px; top: 22px; bottom: 22px;
+      width: 2px; background: repeating-linear-gradient(to bottom, var(--gold) 0 6px, transparent 6px 12px);
+    }
+    .flow-step { position: relative; display: flex; gap: 18px; }
+    .flow-step + .flow-step { margin-top: 18px; }
+    .flow-num {
+      position: relative; z-index: 1; flex-shrink: 0;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+      color: var(--gold); display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Noto Sans JP', sans-serif; font-weight: 700; line-height: 1;
+      box-shadow: 0 0 0 4px var(--cream-light);
+    }
+    .flow-num small { font-size: 8px; letter-spacing: 1px; margin-bottom: 2px; }
+    .flow-num b { font-size: 16px; }
+    .flow-card {
+      flex: 1; min-width: 0; background: var(--cream); border: 1.5px solid #fde68a;
+      border-radius: 14px; padding: 18px 22px;
+      box-shadow: 0 2px 12px rgba(30,41,59,0.06);
+    }
+    .flow-card h3 {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1rem, 2.6vw, 1.1rem); color: var(--navy); margin-bottom: 8px;
+    }
+    .flow-card p {
+      font-family: 'Noto Sans JP', sans-serif; font-size: 14px;
+      color: var(--ink); line-height: 1.85;
+    }
+    .flow-card p + p { margin-top: 6px; }
+
+    /* ════════════════════════════════════════
+       BRING (ごはんのお供を持ち寄る)
+    ════════════════════════════════════════ */
+    .bring { background: var(--cream); padding: 80px 24px; }
+    .bring-inner { max-width: 640px; margin: 0 auto; }
+    .bring-card {
+      background: #fff; border: 2px dashed var(--gold);
+      border-radius: 24px; padding: 36px 32px;
+      box-shadow: 0 4px 20px rgba(30,41,59,0.06);
+    }
+    .bring-title {
+      font-family: 'Noto Serif JP', serif; font-weight: 700;
+      font-size: clamp(1.25rem, 3.8vw, 1.6rem); color: var(--navy);
+      text-align: center; line-height: 1.6; margin-bottom: 24px;
+    }
+    .bring-body {
+      font-family: 'Noto Sans JP', sans-serif; font-size: clamp(0.88rem, 2.2vw, 0.97rem);
+      color: var(--ink); line-height: 2;
+    }
+    .bring-body + .bring-body { margin-top: 14px; }
+    .bring-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+    .bring-chips span {
+      padding: 4px 14px; border-radius: 9999px; background: var(--cream-light);
+      border: 1px solid #fde68a; color: #92400e;
+      font-family: 'Noto Sans JP', sans-serif; font-size: 13px; font-weight: 500;
+    }
+    .bring-close {
+      margin-top: 20px; text-align: center;
+      font-family: 'Noto Serif JP', serif; font-weight: 600;
+      color: var(--navy); font-size: clamp(0.95rem, 2.4vw, 1.05rem); line-height: 1.9;
     }
 
     /* ════════════════════════════════════════
@@ -230,12 +338,38 @@
       font-size: 14px; color: var(--ink); line-height: 1.8; margin-bottom: 24px;
       font-family: 'Noto Sans JP', sans-serif;
     }
-    .event-details { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
-    .event-detail {
-      display: flex; align-items: center; gap: 12px;
-      font-size: 14px; color: var(--ink-dark); font-family: 'Noto Sans JP', sans-serif;
+    .event-card-body .desc-lead {
+      font-family: 'Noto Serif JP', serif; font-weight: 600;
+      color: var(--navy); font-size: 15px; line-height: 1.8; margin-bottom: 16px;
     }
-    .event-detail svg { color: var(--gold-deep); flex-shrink: 0; }
+    .event-card-body .desc-group { margin-bottom: 28px; }
+    .event-card-body .desc-group .desc { margin-bottom: 14px; }
+    .event-card-body .desc-group .desc:last-child { margin-bottom: 0; }
+    .growers {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+      margin-bottom: 28px;
+    }
+    .grower {
+      background: var(--cream); border: 1.5px solid #fde68a; border-radius: 14px;
+      padding: 14px 18px; font-family: 'Noto Sans JP', sans-serif;
+    }
+    .grower-river { display: block; font-size: 12px; color: var(--gold-deep); font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+    .grower-name { display: block; font-family: 'Noto Serif JP', serif; font-weight: 700; color: var(--navy); font-size: 1.05rem; }
+    .event-details {
+      display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;
+      padding-top: 24px; border-top: 1px dashed #fde68a;
+    }
+    .event-detail {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; line-height: 1.7; color: var(--ink-dark); font-family: 'Noto Sans JP', sans-serif;
+    }
+    .event-detail svg { color: var(--gold-deep); flex-shrink: 0; margin-top: 2px; }
+    .event-detail .label { font-weight: 700; color: var(--navy); }
+    .event-detail .badge { letter-spacing: 1px; margin-left: 4px; vertical-align: 1px; }
+    .event-note {
+      font-family: 'Noto Sans JP', sans-serif; font-size: 12px;
+      color: #6b7280; line-height: 1.8;
+    }
     .event-cta { margin-top: 24px; text-align: center; }
     .event-cta .cta-note {
       margin-top: 12px; font-size: 12px; color: #9ca3af;
@@ -306,8 +440,15 @@
     /* ── Responsive ── */
     @media (max-width: 600px) {
       .hero-inner { padding: 60px 20px 40px; }
-      .about, .rules, .event, .themes, .past { padding: 60px 20px; }
+      .about, .rules, .event, .themes, .past, .flow, .bring { padding: 60px 20px; }
       .past-item { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .event-card-header { padding: 16px 20px; }
+      .event-card-body { padding: 26px 20px; }
+      .bring-card { padding: 28px 20px; }
+      .flow-card { padding: 16px 18px; }
+      .flow-step { gap: 14px; }
+      .flow-summary { font-size: 12px; gap: 6px 4px; }
+      .flow-summary .chip { padding: 3px 9px; }
     }
   </style>
 </head>
@@ -320,20 +461,27 @@
       <div class="hero-logo float-anim">
         <img src="logo.jpg" alt="きほくナイト" />
       </div>
-      <p class="hero-catch">
-        移住者、地元、大学生、行政職員。<br>
-        <span class="hl hand-underline">どうしたら、"知り合い"になれる？</span>
-      </p>
+      <p class="hero-vol">きほくナイト Vol.5</p>
+      <h1 class="hero-title">
+        <span class="hl hand-underline">赤羽川と銚子川、</span><br>
+        <span class="hl hand-underline">ごはんでめぐる紀北町。</span>
+      </h1>
       <p class="hero-lead">
-        同じ紀北町や周辺地域にいても、<br>
-        なかなか話す機会がない人たちが、<br>
-        名前を呼び合える関係になる夜。
+        ふたつの流域のお米を味わいながら、<br>
+        土地と人を知る夜。
       </p>
-      <a class="cta-btn" href="https://forms.gle/5NCP11r2ANx4ecmUA" target="_blank" rel="noopener noreferrer">
-        Vol.4 に参加申し込む
+      <div class="hero-info">
+        <div class="hero-info-date"><span data-event-date>10月23日（金）</span> 19:00〜21:00</div>
+        <div>まちライブラリー＠きほく ／ 参加費 1,000円</div>
+        <div class="hero-info-badges">
+          <span class="badge badge-strong">予約制</span>
+          <span class="badge badge-strong">最大12名</span>
+        </div>
+      </div>
+      <a class="cta-btn" data-event-form href="https://forms.gle/4aDw1gig2VGtSKd2A" target="_blank" rel="noopener noreferrer">
+        Vol.5 に参加申し込む
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
-      <p class="hero-date">8月21日（金）19:00〜21:00 ／ 参加費無料</p>
     </div>
     <div class="wave">
       <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60"><path d="M0,30 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1380,10 1440,30 L1440,60 L0,60 Z" fill="#fffbeb"/></svg>
@@ -423,42 +571,159 @@
             <span class="badge badge-new">NEW</span>
             <span class="badge badge-open">募集中</span>
           </div>
-          <span class="event-vol">Vol.4</span>
+          <span class="event-vol">Vol.5</span>
         </div>
         <div class="event-card-body">
           <h3>
-            きほくナイト Vol.4<br>
-            <span class="accent">どうしたら、"知り合い"になれる？</span>
+            きほくナイト Vol.5<br>
+            <span class="accent"><span class="nobr">赤羽川と銚子川、</span><span class="nobr">ごはんでめぐる紀北町。</span></span>
           </h3>
-          <p class="desc">移住者、地元で暮らす人、大学生、行政職員。同じ紀北町や周辺地域にいても、普段はなかなか交わらない人たちが集まる夜です。難しい答えを出す会ではありません。一人ひとりの経験や視点を持ち寄って話すうちに、新しいつながりや、何か面白いことが生まれるかもしれません。</p>
+
+          <div class="desc-group">
+            <p class="desc">紀北町には、赤羽川と銚子川という二つの流域があります。今回のきほくナイトでは、それぞれの地域で作られたお米を味わいます。</p>
+            <p class="desc">でも、どちらがおいしいかを決める会ではありません。</p>
+            <p class="desc">まずは、どこのお米かを知らずに味わってみます。そのあとで、土地や作り手のことを知って、もう一度味わってみます。</p>
+            <p class="desc-lead">知る前と、知ったあと。<br>同じ一杯のごはんでも、少し感じ方が変わるかもしれません。</p>
+            <p class="desc">お米を入口に、紀北町の土地、人、暮らしを少し知る夜です。</p>
+          </div>
+
+          <div class="growers">
+            <div class="grower">
+              <span class="grower-river">赤羽川のお米</span>
+              <span class="grower-name">森農人</span>
+            </div>
+            <div class="grower">
+              <span class="grower-river">銚子川のお米</span>
+              <span class="grower-name">出口農園</span>
+            </div>
+          </div>
 
           <div class="event-details">
             <div class="event-detail">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              8月21日（金） 19:00 〜 21:00（途中参加・退出OK）
+              <span><span class="label">日時：</span><span data-event-date>10月23日（金）</span> 19:00〜21:00</span>
             </div>
             <div class="event-detail">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              まちライブラリー＠きほく（紀北町東長島）
-              <a href="https://maps.app.goo.gl/TXHaiaC3BYHgaYUx6" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:3px;margin-left:8px;padding:2px 10px;border-radius:9999px;background:#fef3c7;border:1px solid #fbbf24;color:#92400e;font-size:12px;font-weight:700;text-decoration:none;">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                地図を見る
-              </a>
+              <span>
+                <span class="label">会場：</span>まちライブラリー＠きほく（紀北町東長島）
+                <a href="https://maps.app.goo.gl/TXHaiaC3BYHgaYUx6" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:3px;margin-left:4px;padding:2px 10px;border-radius:9999px;background:#fef3c7;border:1px solid #fbbf24;color:#92400e;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  地図を見る
+                </a>
+              </span>
+            </div>
+            <div class="event-detail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg>
+              <span><span class="label">参加費：</span>1,000円</span>
             </div>
             <div class="event-detail">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-              参加費：無料
+              <span><span class="label">定員：</span>最大12名<span class="badge badge-new">予約制</span></span>
+            </div>
+            <div class="event-detail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              <span><span class="label">持ち物：</span>できる限り、自分の分のごはんのお供を1つ持参（難しい場合は手ぶらでもOK）</span>
+            </div>
+            <div class="event-detail">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <span><span class="label">まちライブラリー＠きほく から：</span>お茶、味噌汁、ごはんのお供1品をご用意</span>
             </div>
           </div>
+          <p class="event-note">※夕食会ではなく、お米を少量ずつ味わいながら、対話を楽しむ企画です。</p>
 
           <div class="event-cta">
-            <a class="cta-btn" href="https://forms.gle/5NCP11r2ANx4ecmUA" target="_blank" rel="noopener noreferrer">
-              Vol.4 に参加申し込む
+            <a class="cta-btn" data-event-form href="https://forms.gle/4aDw1gig2VGtSKd2A" target="_blank" rel="noopener noreferrer">
+              Vol.5 に参加申し込む
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
-            <p class="cta-note">Googleフォームに遷移します。参加費無料。</p>
+            <p class="cta-note">Googleフォームに遷移します。予約制・最大12名。</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- wave -->
+  <div class="wave" style="background:#fffbeb;">
+    <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50"><path d="M0,25 C200,50 400,0 600,25 C800,50 1000,0 1200,25 C1300,37 1380,15 1440,25 L1440,50 L0,50 Z" fill="#fef3c7"/></svg>
+  </div>
+
+  <!-- ════ FLOW ════ -->
+  <section class="flow">
+    <div class="flow-inner">
+      <div class="section-label">
+        <span style="color:#f59e0b;">★</span>
+        <span style="color:#d97706;">Flow</span>
+        <span style="color:#f59e0b;">★</span>
+      </div>
+      <div class="divider"></div>
+      <h2 class="flow-title">当日の流れ</h2>
+      <div class="flow-summary" aria-hidden="true">
+        <span class="chip">食べる</span><span class="arrow">→</span>
+        <span class="chip">知る</span><span class="arrow">→</span>
+        <span class="chip">もう一度食べる</span><span class="arrow">→</span>
+        <span class="chip">話す</span>
+      </div>
+      <ol class="flow-list">
+        <li class="flow-step">
+          <div class="flow-num"><small>STEP</small><b>1</b></div>
+          <div class="flow-card">
+            <h3>まずは、知らずに味わう</h3>
+            <p>赤羽川・銚子川のどちらのお米かを伏せた状態で味わいます。</p>
+            <p>どちらが上かを決めるのではなく、それぞれの特徴や感じたことを自由に話します。</p>
+          </div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num"><small>STEP</small><b>2</b></div>
+          <div class="flow-card">
+            <h3>土地と作り手を知る</h3>
+            <p>どこで、誰が作っているお米なのかを紹介します。</p>
+            <p>地図や写真などを使いながら、赤羽川と銚子川、それぞれの土地や作り手について知ります。</p>
+          </div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num"><small>STEP</small><b>3</b></div>
+          <div class="flow-card">
+            <h3>ごはんのお供と、もう一度</h3>
+            <p>参加者が持ってきたごはんのお供や、まちライブラリー＠きほくで用意したお茶、味噌汁、ごはんのお供と一緒に、もう一度お米を味わいます。</p>
+          </div>
+        </li>
+        <li class="flow-step">
+          <div class="flow-num"><small>STEP</small><b>4</b></div>
+          <div class="flow-card">
+            <h3>感じたこと、アイデアを持ち寄る</h3>
+            <p>お米の良いところ、合いそうな料理、面白い提供方法、見せ方、売り方、伝え方などを自由に話します。</p>
+            <p>出た感想やアイデアは、米農家さんにもフィードバックする予定です。</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- wave -->
+  <div class="wave" style="background:#fef3c7;">
+    <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="50"><path d="M0,0 C360,50 720,0 1080,50 C1260,75 1380,20 1440,0 L1440,50 L0,50 Z" fill="#fffbeb"/></svg>
+  </div>
+
+  <!-- ════ BRING (ごはんのお供) ════ -->
+  <section class="bring">
+    <div class="bring-inner">
+      <div class="section-label">
+        <span style="color:#fbbf24;">★</span>
+        <span style="color:#f59e0b;">Bring</span>
+        <span style="color:#fbbf24;">★</span>
+      </div>
+      <div class="divider"></div>
+      <div class="bring-card">
+        <h2 class="bring-title"><span class="nobr">あなたの“ごはんのお供”も、</span><span class="nobr">持ち寄って。</span></h2>
+        <p class="bring-body">参加する方には、できる限り、自分が食べる分の「ごはんのお供」をひとつ持ってきてもらえるとうれしいです。準備が難しい場合は、手ぶらでも大丈夫です。</p>
+        <div class="bring-chips">
+          <span>梅干し</span><span>海苔</span><span>ふりかけ</span><span>漬物</span><span>佃煮</span><span>何でもOK</span>
+        </div>
+        <p class="bring-body">特別なものや高価なものでなくて大丈夫です。普段食べているもの、好きなものを、自分の分だけ。</p>
+        <p class="bring-body">まちライブラリー＠きほく からも、<br><span class="nobr">お茶、味噌汁、</span><span class="nobr">ごはんのお供1品をご用意します。</span></p>
+        <p class="bring-close"><span class="nobr">それぞれの好きなものや暮らしを</span><span class="nobr">少しずつ持ち寄って、</span><br>同じ食卓を囲みましょう。</p>
       </div>
     </div>
   </section>
@@ -477,19 +742,24 @@
         <span style="color:#f59e0b;">★</span>
       </div>
       <div class="divider"></div>
-      <h2 class="themes-title">この夜に話したいこと</h2>
+      <h2 class="themes-title"><span class="nobr">この夜に味わいたいこと、</span><span class="nobr">話したいこと</span></h2>
       <p class="themes-lead">
-        難しい答えを出す必要はありません。<br>
-        一人ひとりの経験を持ち寄り、<br>
-        「それなら自分にもできそう」と思える小さな行動を見つけます。
+        正解を当てる食べ比べではありません。<br>
+        感じたことを持ち寄りながら、<br>
+        <span class="nobr">お米の向こう側にある</span><span class="nobr">土地や人のことも少し知ってみます。</span>
       </p>
       <div class="themes-list">
-        <div class="theme-item">「いまここにいる理由」</div>
-        <div class="theme-item">「紀北町や周辺地域に来て、驚いたこと」</div>
-        <div class="theme-item">「地域とつながれた瞬間」</div>
-        <div class="theme-item">「地域に入りやすかった瞬間、入りにくかった瞬間」</div>
-        <div class="theme-item">「世代や立場を越えて、自然につながるにはどうしたらよいか」</div>
+        <div class="theme-item">赤羽川と銚子川のお米、どんな違いを感じる？</div>
+        <div class="theme-item">それぞれのお米の「いいところ」は？</div>
+        <div class="theme-item">どんな料理や、ごはんのお供と合いそう？</div>
+        <div class="theme-item">こんな食べ方や提供方法があったら面白そう</div>
+        <div class="theme-item">お米の魅力を伝えるなら、どんな見せ方や売り方がありそう？</div>
+        <div class="theme-item">作り手を知ったあと、味の感じ方は変わる？</div>
       </div>
+      <p class="themes-note">
+        食べながら、思いついたことを気軽に。<br>
+        みんなで見つけた魅力は、米農家さんにも届けます。
+      </p>
     </div>
   </section>
 
@@ -509,6 +779,13 @@
       <div class="divider"></div>
       <h2 class="past-title">これまでのきほくナイト</h2>
       <div class="past-list">
+        <div class="past-item">
+          <div class="past-meta">
+            <span class="past-vol">Vol.4</span>
+            <span class="past-date">2026.8.21（金）</span>
+          </div>
+          <span class="past-item-title">どうしたら、"知り合い"になれる？</span>
+        </div>
         <div class="past-item">
           <div class="past-meta">
             <span class="past-vol">Vol.3</span>
@@ -547,8 +824,8 @@
         <img src="logo.jpg" alt="きほくナイト" />
       </div>
       <p class="footer-tagline">名前で呼び合える関係から、紀北町や周辺地域の夜が始まる。</p>
-      <a class="cta-btn" href="https://forms.gle/5NCP11r2ANx4ecmUA" target="_blank" rel="noopener noreferrer">
-        Vol.4 に参加申し込む
+      <a class="cta-btn" data-event-form href="https://forms.gle/4aDw1gig2VGtSKd2A" target="_blank" rel="noopener noreferrer">
+        Vol.5 に参加申し込む
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
       <div class="footer-divider"></div>
@@ -557,6 +834,22 @@
   </footer>
 
   <script>
+    // ════════════════════════════════════════
+    //  Vol.5 開催情報 — ここを書き換えるだけで、ページ内すべての表示・リンクに反映されます
+    // ════════════════════════════════════════
+    const EVENT_CONFIG = {
+      // 開催日（例：'11月20日（金）'）。空欄の間は「日程調整中」と表示されます。
+      date: '10月23日（金）',
+      // 申込フォームURL。
+      formUrl: 'https://forms.gle/4aDw1gig2VGtSKd2A',
+    };
+    if (EVENT_CONFIG.date) {
+      document.querySelectorAll('[data-event-date]').forEach(el => { el.textContent = EVENT_CONFIG.date; });
+    }
+    if (EVENT_CONFIG.formUrl) {
+      document.querySelectorAll('[data-event-form]').forEach(el => { el.href = EVENT_CONFIG.formUrl; });
+    }
+
     // Generate star dots in hero
     const heroStars = [
       [12,8,'s1',2],[25,15,'s2',1.5],[75,5,'s3',2.2],[88,12,'s1',1.4],
